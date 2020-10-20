@@ -1,0 +1,35 @@
+.App {
+  padding: 10px;
+  text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+}
+
+.App-header {
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.layout{
+  background-color: gainsboro;
+  text-indent: 10px;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 20px;
+}
+
+.approver-detail{
+  text-shadow: lightcoral;
+  line-height: 0px;
+}
+
+.approver-item {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+}
+
+.approver-item svg {
+  font-size: 1.2rem;
+  margin: 16px 5px;
+}
