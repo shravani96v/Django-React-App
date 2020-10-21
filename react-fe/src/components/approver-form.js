@@ -6,8 +6,8 @@ function ApproverForm(props) {
     const [ approverName, setApproverName ] = useState(props.approver.approver_name);
 
     const updateClicked = () => {
-        API.updateApprover( props.approver.approver_id, {approverName} )
-        .then( resp => console.log('Successful:', resp));
+        API.updateApprover( props.approver.approver_id, approverName )
+        .then( resp => props.updatedApprover(resp));
     };
 
 

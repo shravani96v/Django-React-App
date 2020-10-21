@@ -28,17 +28,11 @@ function App() {
     setEditedApprover(null);
   }
 
-  {/*const editClicked =((props) => {
-    [editedApprover,setEditedApprover] = useState(null);
-
-
-  })*/}
  const editClicked = approver => {
     setEditedApprover(approver);
-    console.log(approver);
-    console.log(editedApprover);
     setSelectedApprover(null);
   }
+
   const updatedApprover = approver => {
     const newApprovers = approvers.map( newApprover => {
       if (newApprover.approver_id === approver.approver_id) {
@@ -46,7 +40,8 @@ function App() {
       }
       return newApprover;
     })
-    setNewApprovers(newApprovers);
+    console.log("Its coming here");
+    setApprovers(newApprovers)
   }
 
   return (
