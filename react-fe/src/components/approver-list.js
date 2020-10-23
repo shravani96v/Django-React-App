@@ -2,6 +2,7 @@ import React from 'react';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { API } from '../api-services'
 
 function ApproverList(props) {
 
@@ -13,46 +14,23 @@ function ApproverList(props) {
     props.editClicked(approver);
   }
 
-  const addNewApprover = () => evt => {
-    fetch("http://127.0.0.1:8000/approver-list/", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify( {approver_name: 'test'} )
-    })
-    .then( resp => newApproverView(resp))
-    .catch(error => console.log(error))
-  }
-
-  const newApproverView = newapprover => {
-    fetch("http://127.0.0.1:8000/approver-list/", {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    })
-    .then( resp => resp.json())
-    .then( resp => props.createApprover(resp))
-    .catch(error => console.log(error))
+  const deleteClicked = approver => {
+    API.deleteApprover(approver.approver_id)
+      .then( () => props.deleteClicked(approver))
+      .catch( error => console.log(error))
   }
 
   return (
     <div>
-      <div>
-        { props.approvers && props.approvers.map( approver => {
-            return (
-              <div key={approver.approver_id} className='approver-item'>
-                <h2 onClick={approverClicked(approver)}>{approver.approver_name}</h2>
-                <FontAwesomeIcon icon={faEdit} onClick={() => editClicked(approver)}/>
-                <FontAwesomeIcon icon={faTrash}/>
-              </div>
-            )
-        })}
-      </div>
-      <div>
-        <button onClick={addNewApprover()}>Add a new approver</button>
-      </div>
+      { props.approvers && props.approvers.map( approver => {
+          return (
+            <div key={approver.approver_id} className='approver-item'>
+              <h2 onClick={approverClicked(approver)}>{approver.approver_name}</h2>
+              <FontAwesomeIcon icon={faEdit} onClick={() => editClicked(approver)}/>
+              <FontAwesomeIcon icon={faTrash} onClick={() => deleteClicked(approver)}/>
+            </div>
+          )
+      })}
     </div>
   )
 }

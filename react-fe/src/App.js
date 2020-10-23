@@ -40,8 +40,25 @@ function App() {
       }
       return newApprover;
     })
-    console.log("Its coming here");
+    console.log("Its coming here in app.js");
     setApprovers(newApprovers)
+  }
+
+  const newApprover = () => {
+    setEditedApprover({approver_name: ''});
+    setSelectedApprover(null);
+  }
+
+  const approverCreated = approver => {
+    const newApprovers = [...approvers, approver];
+    console.log('After create:', newApprovers);
+    setApprovers(newApprovers);
+  }
+
+  const deleteClicked = approver => {
+    const newApprovers = approvers.filter( ap => ap.approver_id !== approver.approver_id);
+    console.log(newApprovers);
+    setApprovers(newApprovers);
   }
 
   return (
@@ -50,9 +67,29 @@ function App() {
         <h2>Approvers List</h2>
       </header>
       <div className="layout">
-          <ApproverList approvers={approvers} approverClick={loadApprover} editClicked={editClicked} createApprover={loadApprover}/>
-          <ApproverDetails approver={selectedApprover} updateApprover={loadApprover}/>
-          { editedApprover ? <ApproverForm approver={editedApprover} updatedApprover={updatedApprover}/> : null}
+          <div>
+            <ApproverList
+              approvers={approvers}
+              approverClick={loadApprover}
+              editClicked={editClicked}
+              createApprover={loadApprover}
+              deleteClicked={deleteClicked}
+            />
+            <button onClick={newApprover}>New Approver</button>
+          </div>
+          { selectedApprover ?
+            <ApproverDetails
+            approver={selectedApprover}
+            updateApprover={loadApprover}
+          />
+          : null }
+          { editedApprover ?
+          <ApproverForm
+            approver={editedApprover}
+            updatedApprover={updatedApprover}
+            approverCreated={approverCreated}
+          />
+          : null}
       </div>
     </div>
   );
