@@ -2,7 +2,7 @@ import React from 'react';
 import { faEdit } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { API } from '../api-services'
+import { API } from '../../api-services'
 
 function ApproverList(props) {
 
@@ -24,8 +24,8 @@ function ApproverList(props) {
     <div>
       { props.approvers && props.approvers.map( approver => {
           return (
-            <div key={approver.approver_id} className='approver-item'>
-              <h2 onClick={approverClicked(approver)}>{approver.approver_name}</h2>
+            <div key={approver.approver_id} className='list-item'>
+              <h4 onClick={approverClicked(approver)}>{approver.approver_name}</h4>
               <FontAwesomeIcon icon={faEdit} onClick={() => editClicked(approver)}/>
               <FontAwesomeIcon icon={faTrash} onClick={() => deleteClicked(approver)}/>
             </div>

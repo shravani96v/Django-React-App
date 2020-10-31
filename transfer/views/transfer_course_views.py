@@ -36,7 +36,7 @@ def transfer_course_detail(request, transfer_course_id):
     try:
         transfer_course = TransferCourse.objects.get(transfer_course_id=transfer_course_id)
     except TransferCourse.DoesNotExist:
-        return JsonResponse({'message': 'The major does not exist'}, status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'message': 'The transfer course does not exist'}, status=status.HTTP_404_NOT_FOUND)
 
     if request.method == 'GET':
         serializer = transferCourseSerializer(transfer_course)
@@ -51,4 +51,4 @@ def transfer_course_detail(request, transfer_course_id):
 
     elif request.method == 'DELETE':
         transfer_course.delete()
-        return JsonResponse({'message': 'Major was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
+        return JsonResponse({'message': 'Transfer Course was deleted successfully!'}, status=status.HTTP_204_NO_CONTENT)
