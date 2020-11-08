@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '../App.css';
 import MajorList from "./major-components/major-list";
 import MajorDetails from "./major-components/major-details";
-import ApproverList from './approver-components/approver-list';
 
 function Major() {
     const [majors, setMajors] = useState([]);
