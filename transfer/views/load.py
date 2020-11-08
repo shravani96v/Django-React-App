@@ -3,7 +3,7 @@ from django.shortcuts import render
 from ..models.model_major import Major
 from ..models.model_school import School
 from ..models.model_transfer_course import TransferCourse
-from ..models.model_major_requirement import Major_requirement
+from ..models.model_major_requirement import MajorRequirement
 from ..models.model_transferevaluation import Transferevaluation
 from ..models.model_approver import Approver
 
@@ -109,7 +109,7 @@ def import_requirement(major_reqs):
     count = 1
     print(major_reqs,'These kskdikdidi')
     for req in major_reqs:
-        req_data = Major_requirement(count, req[1], req[0])
+        req_data = MajorRequirement(count, req[1], req[0])
         req_data.save()
         count = count + 1
 
