@@ -84,7 +84,7 @@ function Approver() {
             </Button>
           </div>
           { selectedApprover ?
-            <ApproverDetails
+          <ApproverDetails
             approver={selectedApprover}
             updateApprover={loadApprover}
           />
