@@ -5,4 +5,4 @@ from transfer.models import TransferCourse
 class transferCourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = TransferCourse
-        fields = '__all__'
+        fields = ['transfer_course_id', 'school_id', 'subject_number', 'title', 'school']
