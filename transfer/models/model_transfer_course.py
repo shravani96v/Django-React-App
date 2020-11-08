@@ -13,3 +13,8 @@ class TransferCourse(models.Model):
 
     def __str__(self):
         return self.title
+
+    def school(self):
+        return str(self.school_id.school_name)
+    
+    print(school)
