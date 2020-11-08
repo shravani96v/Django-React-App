@@ -13,13 +13,15 @@ const Navigation = () => {
         <Nav.Link href="/">Home</Nav.Link>
         <Nav.Link href="/approver">Approver</Nav.Link>
         <Nav.Link href="/major">Major</Nav.Link>
+        <Nav.Link href="/transfer-course">Transfer Course</Nav.Link>
+        <Nav.Link href="/school">School</Nav.Link>
       </Nav>
       <Form inline>
         <FormControl type="text" placeholder="Search" className="mr-sm-2" />
         <Button variant="outline-info">Search</Button>
       </Form>
       </Navbar>
-    )
+    );
 }
  
 export default Navigation;
