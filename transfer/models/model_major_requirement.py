@@ -2,9 +2,9 @@ from django.db import models
 from .model_major import Major
 
 
-class Major_requirement(models.Model):
+class MajorRequirement(models.Model):
     """
-    table name is Major_requirement
+    table name is MajorRequirement
     major_req_id is the Primarykey
     """
     major_req_id = models.AutoField(primary_key=True)
@@ -16,3 +16,4 @@ class Major_requirement(models.Model):
 
     def __str__(self):
         return str(self.description)
+    
