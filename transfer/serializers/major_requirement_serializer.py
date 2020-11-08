@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from transfer.models import Major_requirement
+from transfer.models import MajorRequirement
 
 
 class majorRequirementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Major_requirement
+        model = MajorRequirement
         fields = '__all__'
