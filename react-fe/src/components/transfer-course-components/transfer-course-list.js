@@ -35,7 +35,9 @@ function TransferCourseList(props) {
             <thead>
                 <tr>
                     <th onClick={() => window.location.reload(false)}>TRANSFER COURSE NAME</th>
-                    <th />
+                    <th>SCHOOL NAME</th>
+                    <th>SUBJECT NUMBER</th>
+                    <th/>
                     <th>
                         <FontAwesomeIcon icon={faPlus} alignmentBaseline='before-edge' onClick={newTransferCourse}/>
                     </th>
@@ -47,6 +49,12 @@ function TransferCourseList(props) {
                         <tr>
                             <td onClick={courseClicked(course)}>
                             {course.title}
+                            </td>
+                            <td>
+                                {course.school}
+                            </td>
+                            <td>
+                                {course.subject_number}
                             </td>
                             <td>
                                 <Button variant="outline-primary" onClick={() => editClicked(course)}>Edit</Button>

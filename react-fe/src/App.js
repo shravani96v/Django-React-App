@@ -9,6 +9,8 @@ import Home from './components/home';
 import Navigation from './components/navigation';
 import Error from './components/error';
 import School from './components/school';
+import MajorRequirememnt from './components/major_requirement';
+import TransferEvaluation from './components/transfer_evaluation';
  
 class App extends Component {
   render() {
@@ -20,8 +22,10 @@ class App extends Component {
              <Route path="/" component={Home} exact/>
              <Route path="/approver" component={Approver}/>
              <Route path="/major" component={Major}/>
-             <Route path="/transfer-course" component={TransferCourse}/>
              <Route path="/school" component={School}/>
+             <Route path="/transfer-course" component={TransferCourse}/>
+             <Route path="/major-req" component={MajorRequirememnt} />
+             <Route path="/transfer-eval" component={TransferEvaluation} />
              <Route component={Error}/>
            </Switch>
         </div> 

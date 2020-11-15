@@ -5,6 +5,7 @@ import TransferCourseDetails from './transfer-course-components/transfer-course-
 import TransferCourseForm from './transfer-course-components/transfer-course-form';
 
 function TransferCourse() {
+
     const [courses, setCourses] = useState([]);
     const [selectedCourse, setSelectedCourse] = useState(null);
     const [editedCourse, setEditedCourse] = useState(null);
@@ -23,6 +24,7 @@ function TransferCourse() {
     
     const loadTransferCourse = course => {
         setSelectedCourse(course);
+        setEditedCourse(null);
     }
 
     const newTransferCourse = () => {
@@ -42,12 +44,12 @@ function TransferCourse() {
 
     const updatedTransferCourse = course => {
       const newCourses = courses.map( newCourse => {
-        if (newCourse.transfer_course_id === newCourse.transfer_course_id) {
+        if (newCourse.transfer_course_id === course.transfer_course_id) {
           return course;
         }
         return newCourse;
       })
-      setCourses(newCourses)
+      setCourses(newCourses);
     }
 
     const transferCourseCreated = course => {
@@ -59,7 +61,7 @@ function TransferCourse() {
         <div className="list-group">
           <br/>
             <header className="App-header">
-                <h2>Transfer courses list</h2>
+                <h2>Transfer courses</h2>
             </header>
             <div className="layout">
                 <TransferCourseList

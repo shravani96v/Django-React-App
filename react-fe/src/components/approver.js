@@ -12,7 +12,6 @@ function Approver() {
   const [approvers, setApprovers] = useState([]);
   const [selectedApprover, setSelectedApprover] = useState(null);
   const [editedApprover, setEditedApprover] = useState(null);
-  const [newApprovers, setNewApprovers] = useState([]);
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/approver-list/", {

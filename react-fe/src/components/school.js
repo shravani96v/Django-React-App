@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import '../App.css';
-import TransferCourseList from './transfer-course-components/transfer-course-list';
-import TransferCourseDetails from './transfer-course-components/transfer-course-details';
-import TransferCourseForm from './transfer-course-components/transfer-course-form';
 import SchoolList from './school-components/school-list';
+import SchoolDetails from './school-components/school-details';
+import SchoolForm from './school-components/school-form';
 
 function School() {
     
@@ -23,18 +22,71 @@ function School() {
         .catch(error => console.log(error))
       }, [])
 
+    const loadSchool = school => {
+      setSelectedSchool(school);
+      setEditedSchool(null);
+    }
+
+    const newSchool = () => {
+      setEditedSchool({school_name:'', state_name:''});
+      setSelectedSchool(null);
+    }
+
+    const editClicked = school => {
+      setEditedSchool(school);
+      setSelectedSchool(null);
+    }
+
+    const updatedSchool = school => {
+      const newSchools = schools.map( newSchool => {
+        if (newSchool.school_id === school.school_id) {
+          return school;
+        }
+        return newSchool;
+      })
+      setSchools(newSchools);
+    }
+
+    const schoolCreated = school => {
+      const newSchools = [...schools, school];
+      setSchools(newSchools);
+    }
+
+    const deleteClicked = school => {
+      const newSchools = schools.filter( s => s.school_id !== school.school_id);
+      setSchools(newSchools);
+    }
+
     return (
         <div className="list-group">
           <br/>
             <header className="App-header">
-                <h2>Schools list</h2>
+                <h2>Schools</h2>
             </header>
             <div className="layout">
-                <SchoolList schools={schools}/>
+                <SchoolList
+                  schools={schools}
+                  schoolClicked={loadSchool}
+                  editClicked={editClicked}
+                  deleteClicked={deleteClicked}
+                  newSchool={newSchool}
+                />
+                { selectedSchool ?
+                <SchoolDetails
+                  school={selectedSchool}
+                  updatedSchool={loadSchool}
+                />
+                : null }
+                { editedSchool ?
+                <SchoolForm
+                  school={editedSchool}
+                  updatedSchool={updatedSchool}
+                  schoolCreated={schoolCreated}
+                />
+                : null }
             </div>
         </div>
       );
-
 
 }
 
