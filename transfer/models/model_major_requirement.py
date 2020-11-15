@@ -16,4 +16,6 @@ class MajorRequirement(models.Model):
 
     def __str__(self):
         return str(self.description)
-    
+
+    def major(self):
+        return str(self.major_id.major_name)
