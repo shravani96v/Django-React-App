@@ -59,6 +59,7 @@ function TransferCourseForm(props) {
                                     )
                                 })}
                             </select>
+                            {console.log(school_id)}
                         <Form.Label htmlFor="subjectnumber">Subject number</Form.Label>
                         <Form.Control id="subjectnumber" type="text" placeholder="Enter subject number"
                             value={subjectNumber} onChange={evt => setSubjectNumber(evt.target.value)}/><br/>

@@ -37,9 +37,14 @@ def transfer_evaluation_detail(request, transfer_eval_id):
         return JsonResponse(serializer.data)
 
     elif request.method == 'PUT':
-        serializer = transferEvaluationSerializer(transfer_evaluation, data=request.data)
+        serializer = transferEvaluationSerializer(transfer_evaluation, data=request.data, partial=True)
+        print('testtt')
+        print(serializer.is_valid())
+        print(serializer.errors)
+        
         if serializer.is_valid():
             serializer.save()
+            print(serializer.data)
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

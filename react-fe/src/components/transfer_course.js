@@ -28,7 +28,7 @@ function TransferCourse() {
     }
 
     const newTransferCourse = () => {
-      setEditedCourse({school_id: '', subject_number:'', title:''});
+      setEditedCourse({school_id:1, subject_number:'', title:''});
       setSelectedCourse(null);
     }
 

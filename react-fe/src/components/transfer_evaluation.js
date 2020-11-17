@@ -51,11 +51,17 @@ function TransferEvaluation() {
         return newTransferEval;
       })
       setTransferEvals(newTransferEvals);
+      setSelectedTransferEval(null);
+      setEditedTransferEval(null);
     }
 
     const transferEvalCreated = transferEval => {
+      debugger;
+      console.log('akshfgdjakhsdgf', transferEval)
       const newTransferEvals = [...transferEvals, transferEval];
       setTransferEvals(newTransferEvals);
+      setSelectedTransferEval(null);
+      setEditedTransferEval(null);
     }
 
     const openList = () => {
@@ -85,10 +91,10 @@ function TransferEvaluation() {
                     updateTransferEval={loadTransferEval}
                     />
                     : null }
-                {editedTransferEval ?
+                {editedTransferEval ?        
                     <TransferEvaluationForm
                     transferEval={editedTransferEval}
-                    updatedTransferEval={updatedTransferEval}
+                    updatedTransferEvaluation={updatedTransferEval}
                     transferEvalCreated={transferEvalCreated}
                     />
                     : null}

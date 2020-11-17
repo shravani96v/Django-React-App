@@ -42,6 +42,7 @@ function TransferEvaluationList(props) {
                     <th>UNHM EQUIVALENT</th>
                     <th>APPROVED STATUS</th>
                     <th>APPROVER NAME</th>
+                    <th>SEM/YEAR TAKEN</th>
                     <th>EXPIRATION DATE</th>
                     <th/>
                     <th>
@@ -73,6 +74,9 @@ function TransferEvaluationList(props) {
                             </td>
                             <td>
                                 {transferEval.approver}
+                            </td>
+                            <td>
+                                {transferEval.sem_year_taken}
                             </td>
                             <td>
                                 {transferEval.expiration_date}

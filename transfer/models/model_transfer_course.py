@@ -15,6 +15,6 @@ class TransferCourse(models.Model):
         return self.title
 
     def school(self):
-        return str(self.school_id.school_name)
+        return str(self.school_id)
     
     print(school)
