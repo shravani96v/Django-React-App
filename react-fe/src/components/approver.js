@@ -77,10 +77,8 @@ function Approver() {
               editClicked={editClicked}
               createApprover={loadApprover}
               deleteClicked={deleteClicked}
+              newApprover={newApprover}
             />
-            <Button variant="outline-primary" type="submit" onClick={newApprover}>
-              New Approver
-            </Button>
           </div>
           { selectedApprover ?
           <ApproverDetails

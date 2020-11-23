@@ -16,14 +16,14 @@ const Navigation = () => {
         <Nav.Link href="/school">School</Nav.Link>
         <Nav.Link href="/transfer-course">Transfer Course</Nav.Link>
         <Nav.Link href="/major-req">Major Requirement</Nav.Link>
-        <Nav.Link href="/transfer-eval">Transfer Evaluation</Nav.Link>
       </Nav>
-      <Form inline>
-        <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-        <Button variant="outline-info">Search</Button>
-      </Form>
+        <Form inline>
+          <Button href="/import"  size="sm" variant="dark" className="mr-sm-2">Import</Button>
+          <Button href="/remove"  size="sm" variant="dark" className="mr-sm-2">Remove data</Button>
+        </Form>
       </Navbar>
     );
 }
  
 export default Navigation;
+

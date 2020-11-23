@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Pagination from '../../components/pagination';
 import { Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -6,6 +7,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API } from '../../api-services/transfer-eval-service';
 
 function TransferEvaluationList(props) {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [transferEvalsPerPage] = useState(6);
+
+    // Get current transfer evals
+    const indexOfLastTransferEval = currentPage * transferEvalsPerPage;
+    const indexOfFirstTransferEval = indexOfLastTransferEval - transferEvalsPerPage;
+    const currentTransferEvals = props.transferEvals.slice(indexOfFirstTransferEval, indexOfLastTransferEval);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     const transferEvalClicked = transferEval => evt => {
         props.transferEvalClicked(transferEval);
@@ -18,7 +30,7 @@ function TransferEvaluationList(props) {
     
     const deleteClicked = transferEval => {
         if (window.confirm("Are you sure?")) {
-            API.deleteTransferEval(transferEval.transfer_eval_id)
+            API.deleteTransferEvaluation(transferEval.transfer_eval_id)
             .then( () => props.deleteClicked(transferEval))
             .catch( error => console.log(error))
         } else {
@@ -51,7 +63,7 @@ function TransferEvaluationList(props) {
                 </tr>
             </thead>
             <tbody>
-                    { props.transferEvals && props.transferEvals.map( transferEval => {
+                    { currentTransferEvals && currentTransferEvals.map( transferEval => {
                     return (
                         <tr>
                             <td onClick={transferEvalClicked(transferEval)}>
@@ -91,6 +103,7 @@ function TransferEvaluationList(props) {
                     )})}
             </tbody>
         </Table>
+        <Pagination elementsPerPage={transferEvalsPerPage} totalElements={props.transferEvals.length} paginate={paginate}/>
     </>
     )
 }

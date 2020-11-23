@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API } from '../../api-services/approver-service';
+import { ApproverAPI } from '../../api-services/approver-service';
 import { Form, Button } from 'react-bootstrap'
 import '../../App.css'
 
@@ -12,13 +12,13 @@ function ApproverForm(props) {
     }, [props.approver])
 
     const updateClicked = () => {
-        API.updateApprover(props.approver.approver_id, approverName)
+        ApproverAPI.updateApprover(props.approver.approver_id, approverName)
             .then(resp => {
                  props.updatedApprover(resp) });
     };
 
     const createClicked = () => {
-        API.createApprover(approverName)
+        ApproverAPI.createApprover(approverName)
             .then(resp => props.approverCreated(resp));
     };
 

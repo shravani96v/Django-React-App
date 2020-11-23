@@ -1,11 +1,23 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, { useState } from 'react';
+import Pagination from '../../components/pagination';
+import { Container, Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API } from '../../api-services/major-req-service';
 
 function MajorRequirementList(props) {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [majorReqsPerPage] = useState(5);
+
+    // Get current transfer evals
+    const indexOfLastMajorReq = currentPage * majorReqsPerPage;
+    const indexOfFirstMajorReq = indexOfLastMajorReq - majorReqsPerPage;
+    const currentMajorReqs = props.majorReqs.slice(indexOfFirstMajorReq, indexOfLastMajorReq);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     const majorReqClicked = majorReq => evt => {
         props.majorReqClicked(majorReq);
@@ -31,6 +43,7 @@ function MajorRequirementList(props) {
     
 
     return (
+        <Container>
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -43,7 +56,7 @@ function MajorRequirementList(props) {
                 </tr>
             </thead>
             <tbody>
-                    { props.majorReqs && props.majorReqs.map( majorReq => {
+                    { currentMajorReqs && currentMajorReqs.map( majorReq => {
                     return (
                         <tr>
                             <td onClick={majorReqClicked(majorReq)}>
@@ -62,6 +75,8 @@ function MajorRequirementList(props) {
                     )})}
             </tbody>
         </Table>
+        <Pagination elementsPerPage={majorReqsPerPage} totalElements={props.majorReqs.length} paginate={paginate}/>
+        </Container>
     )
 }
 

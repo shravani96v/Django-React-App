@@ -1,5 +1,5 @@
 
-export class API {
+export class ApproverAPI {
     static updateApprover(approver_id, body) {
 
         const formData = new FormData();

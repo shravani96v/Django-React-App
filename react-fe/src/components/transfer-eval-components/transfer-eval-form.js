@@ -115,9 +115,12 @@ function TransferEvaluationForm(props) {
                                             sem_year_taken: semYearTaken
                                         })
             .then(resp => {
-                 console.log(resp);
-                 props.updatedTransferEvaluation(resp)
-
+                    console.log(resp);
+                    if(!resp.isError) {
+                    props.updatedTransferEvaluation(resp);
+                    } else {
+                        setErrorMsg('updating');
+                    }
                 });
                 e.preventDefault();
     };
@@ -140,14 +143,19 @@ function TransferEvaluationForm(props) {
                 
                 console.log('askyudfgkasdjhfg', resp)
                 if(!resp.isError) {
-                   
                     props.transferEvalCreated(resp.resp);
                 } else {
-                    setErrorMsg('Creating');
+                    setErrorMsg('creating');
                 }
             });
             e.preventDefault();     
     };
+
+    const cancelClicked = (e) => {
+        return(
+            <p>You have clicked cancel</p>
+        )
+    }
 
     return (
         <div>
@@ -158,6 +166,7 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={major_id}
                             onChange={evt => setMajorId(evt.target.value)}>
+                                <option disabled selected>----select----</option>
                                 {majors && majors.map( major => {
                                     return (
                                         <option key={major.major_id} value={major.major_id}>{major.major_name} </option>
@@ -169,7 +178,7 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={school_id}
                             onChange={evt => setSchoolId(evt.target.value)}>
-                                <option>----select----</option>
+                                <option disabled selected>----select----</option>
                                 {schools && schools.map( school => {
                                     return (
                                         <option key={school.school_id} value={school.school_id}>{school.school_name} </option>
@@ -181,6 +190,7 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={transfer_course_id}
                             onChange={evt => setTransferCourseId(evt.target.value)}>
+                                <option>----select----</option>
                                 {transferCourses && transferCourses.map( tc => {
                                     return (
                                         <option key={tc.transfer_course_id} value={tc.transfer_course_id}>{tc.subject_number} </option>
@@ -192,6 +202,7 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={major_req_id}
                             onChange={evt => setMajorReqId(evt.target.value)}>
+                                <option>----select----</option>
                                 {majorReqs && majorReqs.map( mr => {
                                     return (
                                         <option key={mr.major_req_id} value={mr.major_req_id}>{mr.description} </option>
@@ -203,17 +214,19 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={approver_id}
                             onChange={evt => setApproverId(evt.target.value)}>
+                                <option>----select----</option>
                                 {approvers && approvers.map( app => {
                                     return (
                                         <option key={app.approver_id} value={app.approver_id}>{app.approver_name} </option>
                                     )
                                 })}
-                    </select><br />
+                    </select>
                     <Form.Label htmlFor="approved_status">Approved status</Form.Label>
                     <select id="approved_status"
                             className='form-control'
                             value={approvedStatus}
                             onChange={evt => setApprovedStatus(evt.target.value)}>
+                                <option disabled selected>----select----</option>
                                 <option value="Y">Yes</option>
                                 <option value="N">No</option>
                     </select><br />
@@ -236,7 +249,8 @@ function TransferEvaluationForm(props) {
                             <Button variant="outline-success" type="submit" onClick={createClicked}>
                                 Create
                             </Button>
-                        }
+                        }&nbsp;&nbsp;
+                    <Button variant="outline-danger" type="submit" onClick={cancelClicked}>Cancel</Button>
                 </Form>
             ) : null }
         </div>

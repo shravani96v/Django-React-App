@@ -1,11 +1,23 @@
-import React from 'react';
-import { Table } from 'react-bootstrap';
+import React, { useState } from 'react';
+import Pagination from '../../components/pagination';
+import { Container, Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API } from '../../api-services/transfer-course-service';
 
 function TransferCourseList(props) {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [coursesPerPage] = useState(5);
+
+    // Get current transfer evals
+    const indexOfLastCourse = currentPage * coursesPerPage;
+    const indexOfFirstCourse = indexOfLastCourse - coursesPerPage;
+    const currentCourses = props.courses.slice(indexOfFirstCourse, indexOfLastCourse);
+
+    // Change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     const courseClicked = course => evt => {
         props.courseClicked(course);
@@ -31,6 +43,7 @@ function TransferCourseList(props) {
     
 
     return (
+        <Container>
         <Table striped bordered hover>
             <thead>
                 <tr>
@@ -44,7 +57,7 @@ function TransferCourseList(props) {
                 </tr>
             </thead>
             <tbody>
-                    { props.courses && props.courses.map( course => {
+                    { currentCourses && currentCourses.map( course => {
                     return (
                         <tr>
                             <td onClick={courseClicked(course)}>
@@ -66,6 +79,8 @@ function TransferCourseList(props) {
                     )})}
             </tbody>
         </Table>
+        <Pagination elementsPerPage={coursesPerPage} totalElements={props.courses.length} paginate={paginate}/>
+        </Container>
     )
 }
 

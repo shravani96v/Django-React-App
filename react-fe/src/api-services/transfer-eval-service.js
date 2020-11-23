@@ -60,5 +60,13 @@ export class API {
                     
                 });
     }
+
+    static deleteTransferEvaluation(transfer_eval_id) {
+
+        return fetch(`http://127.0.0.1:8000/transfer-evaluation/${transfer_eval_id}/`, {
+            crossDomain: true,
+            method: 'DELETE',
+        })
+    }
 }
 

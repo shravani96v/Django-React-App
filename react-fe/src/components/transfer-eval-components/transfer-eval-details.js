@@ -24,6 +24,7 @@ function TransferEvaluationDetails(props) {
             <em> &nbsp;Approver: {props.transferEval.approver}</em><br />
             <em> &nbsp;Sem/year taken: {props.transferEval.sem_year_taken}</em><br />
             <em> &nbsp;Expiration date: {props.transferEval.expiration_date}</em><br />
+            <em> &nbsp;Notes: {props.transferEval.notes}</em><br />
         </Modal.Body>
 
         <Modal.Footer>

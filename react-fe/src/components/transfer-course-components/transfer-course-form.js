@@ -52,7 +52,8 @@ function TransferCourseForm(props) {
                             <select id='school'
                                     className='form-control'
                                     value={school_id}
-                                    onChange={evt => setSchoolId(evt.target.value)}>                            
+                                    onChange={evt => setSchoolId(evt.target.value)}>
+                                <option disabled selected>----select----</option>                            
                                 { schools && schools.map( school => {
                                     return (
                                         <option key={school.school_id} value={school.school_id}>{school.school_name}</option>

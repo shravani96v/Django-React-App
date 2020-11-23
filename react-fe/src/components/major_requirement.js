@@ -28,7 +28,7 @@ function MajorRequirememnt() {
     }
 
     const newMajorReq = () => {
-      setEditedMajorReq({description: '', major_id:''});
+      setEditedMajorReq({description: '', major_id:1});
       setSelectedMajorReq(null);
     }
 

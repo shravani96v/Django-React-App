@@ -11,6 +11,7 @@ import Error from './components/error';
 import School from './components/school';
 import MajorRequirememnt from './components/major_requirement';
 import TransferEvaluation from './components/transfer_evaluation';
+import ImportFile from './components/import_file';
  
 class App extends Component {
   render() {
@@ -25,7 +26,7 @@ class App extends Component {
              <Route path="/school" component={School}/>
              <Route path="/transfer-course" component={TransferCourse}/>
              <Route path="/major-req" component={MajorRequirememnt} />
-             <Route path="/transfer-eval" component={TransferEvaluation} />
+             <Route path="/import" component={ImportFile} />
              <Route component={Error}/>
            </Switch>
         </div> 
@@ -35,3 +36,5 @@ class App extends Component {
 }
  
 export default App;
+
+// <Route path="/transfer-eval" component={TransferEvaluation} />
