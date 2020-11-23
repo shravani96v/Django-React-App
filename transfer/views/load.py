@@ -11,6 +11,7 @@ from ..models.model_approver import Approver
 def import_file(request):
     if request.method == 'POST':
         file = request.FILES['document']
+        print(type(file))
         import_data(file)
     return render(request, 'import.html')
 
