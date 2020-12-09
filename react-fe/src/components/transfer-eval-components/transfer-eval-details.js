@@ -26,11 +26,6 @@ function TransferEvaluationDetails(props) {
             <em> &nbsp;Expiration date: {props.transferEval.expiration_date}</em><br />
             <em> &nbsp;Notes: {props.transferEval.notes}</em><br />
         </Modal.Body>
-
-        <Modal.Footer>
-            <Button variant="primary">Edit</Button>
-            <Button variant="danger">Delete</Button>
-        </Modal.Footer>
         </Modal.Dialog>
     )
 }

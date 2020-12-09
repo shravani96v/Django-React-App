@@ -1,38 +1,37 @@
 import React, { useState, useEffect } from 'react';
-import { ApproverAPI } from '../../api-services/approver-service';
+import { MajorAPI } from '../../api-services/major-service';
 import { Form, Button } from 'react-bootstrap'
 import '../../App.css'
 
-function ApproverForm(props) {
+function MajorForm(props) {
 
-    const [approverName, setApproverName] = useState('');
+    const [majorName, setMajorName] = useState('');
 
     useEffect(() => {
-        setApproverName(props.approver.approver_name);
-    }, [props.approver])
+        setMajorName(props.major.major_name);
+    }, [props.major])
 
     const updateClicked = () => {
-        ApproverAPI.updateApprover(props.approver.approver_id, approverName)
+        MajorAPI.updateMajor(props.major.major_id, majorName)
             .then(resp => {
-                 props.updatedApprover(resp) });
+                 props.updatedMajor(resp) });
     };
 
     const createClicked = () => {
-        debugger;
-        ApproverAPI.createApprover(approverName)
-            .then(resp => props.approverCreated(resp));
+        MajorAPI.createMajor(majorName)
+            .then(resp => props.majorCreated(resp));
     };
 
 
     return (
         <React.Fragment>
-            { props.approver ? (
+            { props.major ? (
                 <div>
                     <Form id='form-css'>
-                        <Form.Label htmlFor="name">Approver name</Form.Label>
+                        <Form.Label htmlFor="name">Major name</Form.Label>
                         <Form.Control id="name" type="text" placeholder="Enter name"
-                            value={approverName} onChange={evt => setApproverName(evt.target.value)}/><br/>
-                        { props.approver.approver_id ?
+                            value={majorName} onChange={evt => setMajorName(evt.target.value)}/><br/>
+                        { props.major.major_id ?
                             <Button variant="outline-success" type="submit" onClick={updateClicked}>
                                 Update
                             </Button> :
@@ -47,4 +46,4 @@ function ApproverForm(props) {
     )
 }
 
-export default ApproverForm;
+export default MajorForm;

@@ -5,7 +5,8 @@ export class API {
         debugger;
         const formData = new FormData();
         formData.append('expiration_date', body.expiration_date);
-        formData.append('transfer_course_id', body.transfer_course_id)
+        formData.append('course_number', body.course_number)
+        formData.append('course_title', body.course_title)
         formData.append('major_id', body.major_id)
         formData.append('school_id', body.school_id)
         formData.append('major_req_id', body.major_req_id)

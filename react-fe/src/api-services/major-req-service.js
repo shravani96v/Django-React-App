@@ -1,4 +1,4 @@
-export class API {
+export class MRAPI {
 
     static updateMajorReq(major_req_id, body) {
 
@@ -11,13 +11,6 @@ export class API {
             method: 'PUT',
             body: formData
         }).then(resp => resp.json())
-            .then(
-                resp => {
-                    console.log(resp)
-                    return resp;
-                },
-                err => console.log(err))
-
     }
 
     static createMajorReq(body) {
@@ -30,12 +23,6 @@ export class API {
             method: 'POST',
             body: formData
         }).then(resp => resp.json())
-            .then(
-                resp => {
-                    console.log(resp)
-                    return resp;
-                },
-                err => console.log(err))
 
     }
 

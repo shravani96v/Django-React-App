@@ -7,9 +7,10 @@ function ApproverDetails(props) {
     return (
         <div>
             {approv ? (
-                <div className='approver-detail'>
-                    <h4>Approver ID: {approv.approver_id}</h4>
-                    <h4>Approver name: {approv.approver_name}</h4>
+                <div>
+                    <h5><i>Approver details</i></h5><br/>
+                    <em>&nbsp;Approver ID: {approv.approver_id}</em><br/>
+                    <em>&nbsp;Approver name: {approv.approver_name}</em>
                 </div>
             ) : null}
         </div>

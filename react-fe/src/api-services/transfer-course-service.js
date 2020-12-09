@@ -1,4 +1,4 @@
-export class API {
+export class TCAPI {
 
     static updateTransferCourse(transfer_course_id, body) {
 
@@ -32,13 +32,12 @@ export class API {
             method: 'POST',
             body: formData
         }).then(resp => resp.json())
-            .then(
-                resp => {
-                    console.log(resp)
-                    return resp;
-                },
-                err => console.log(err))
-
+        .then(
+            resp => {
+                console.log(resp)
+                return resp;
+            },
+            err => console.log(err))
     }
 
     static deleteTransferCourse(transfer_course_id) {

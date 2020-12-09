@@ -12,6 +12,7 @@ import School from './components/school';
 import MajorRequirememnt from './components/major_requirement';
 import TransferEvaluation from './components/transfer_evaluation';
 import ImportFile from './components/import_file';
+import RemoveData from './components/remove-data';
  
 class App extends Component {
   render() {
@@ -27,6 +28,7 @@ class App extends Component {
              <Route path="/transfer-course" component={TransferCourse}/>
              <Route path="/major-req" component={MajorRequirememnt} />
              <Route path="/import" component={ImportFile} />
+             <Route path="/remove" component={RemoveData} />
              <Route component={Error}/>
            </Switch>
         </div> 

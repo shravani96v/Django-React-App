@@ -1,8 +1,10 @@
 import React, { Modal, useState, useEffect } from 'react';
 import '../App.css';
+import { withRouter } from "react-router-dom";
 import TransferEvaluationList from './transfer-eval-components/transfer-eval-list';
 import TransferEvaluationDetails from './transfer-eval-components/transfer-eval-details';
 import TransferEvaluationForm from './transfer-eval-components/transfer-eval-form';
+import NewForm from './transfer-eval-components/new-form';
 
 
 function TransferEvaluation() {
@@ -10,6 +12,11 @@ function TransferEvaluation() {
     const [transferEvals, setTransferEvals] = useState([]);
     const [selectedTransferEval, setSelectedTransferEval] = useState(null);
     const [editedTransferEval, setEditedTransferEval] = useState(null);
+    // This is for transfer course api Service;
+    const [courses, setCourses] = useState([]);
+    const [transferCourseId, setTransferCourseId] = useState('');
+    const [majorReqs, setMajorReqs] = useState([]);
+    const [majorReqId, setMajorReqId] = useState('');
 
     useEffect(() => {
         fetch("http://127.0.0.1:8000/transfer-evaluation-list/", {
@@ -20,6 +27,30 @@ function TransferEvaluation() {
         })
         .then( resp => resp.json())
         .then( resp => setTransferEvals(resp))
+        .catch(error => console.log(error))
+      }, [])
+
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/transfer-course-list/", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then( resp => resp.json())
+        .then( resp => setCourses(resp))
+        .catch(error => console.log(error))
+      }, [])
+    
+    useEffect(() => {
+        fetch("http://127.0.0.1:8000/major-requirement-list/", {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          }
+        })
+        .then( resp => resp.json())
+        .then( resp => setMajorReqs(resp))
         .catch(error => console.log(error))
       }, [])
     
@@ -68,6 +99,18 @@ function TransferEvaluation() {
         setSelectedTransferEval(false);
     }
 
+    const transferCourseCreated = course => {
+      const newCourses = [...courses, course];
+      setCourses(newCourses);
+      setTransferCourseId(course.transfer_course_id);
+    }
+
+    const majorReqCreated = majorReq => {
+      const newMajorReqs = [...majorReqs, majorReq];
+      setMajorReqs(newMajorReqs);
+      setMajorReqId(majorReq.major_req_id);
+    }
+
     return (
         <div>
           <br/>
@@ -96,6 +139,10 @@ function TransferEvaluation() {
                     transferEval={editedTransferEval}
                     updatedTransferEvaluation={updatedTransferEval}
                     transferEvalCreated={transferEvalCreated}
+                    transferCourseCreated={transferCourseCreated}
+                    transferCourseId={transferCourseId}
+                    majorReqCreated={majorReqCreated}
+                    majorReqId={majorReqId}
                     />
                     : null}
             </div>
@@ -104,7 +151,7 @@ function TransferEvaluation() {
 
 }
 
-export default TransferEvaluation;
+export default withRouter(TransferEvaluation);
 
 /*
 {selectedTransferEval ?

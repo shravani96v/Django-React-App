@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Pagination from '../../components/pagination';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Container } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ApproverAPI } from '../../api-services/approver-service';
@@ -28,9 +28,13 @@ function ApproverList(props) {
   }
 
   const deleteClicked = approver => {
-    ApproverAPI.deleteApprover(approver.approver_id)
+    if (window.confirm("Are you sure? - All the transfer evaluations of this approver will be deleted")) {
+      ApproverAPI.deleteApprover(approver.approver_id)
       .then( () => props.deleteClicked(approver))
       .catch( error => console.log(error))
+    } else {
+        console.log("You clicked cancel");
+    }
   }
 
   const newApprover = () => {
@@ -38,12 +42,11 @@ function ApproverList(props) {
   }
 
   return (
-    <>
-    <Table striped border hover>
+    <Container>
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th onClick={() => window.location.reload(false)}>APPROVER NAME</th>
-          <th />
           <th />
           <th>
             <FontAwesomeIcon icon={faPlus} alignmentBaseline='before-edge' onClick={newApprover}/>
@@ -57,9 +60,8 @@ function ApproverList(props) {
               <td onClick={approverClicked(approver)}>
                 {approver.approver_name}
               </td>
-              <td />
               <td>
-              <Button variant="outline-primary" onClick={() => editClicked(approver)}>Edit</Button>
+                <Button variant="outline-primary" onClick={() => editClicked(approver)}>Edit</Button>
               </td>
               <td>
                 <Button variant="outline-danger" onClick={() => deleteClicked(approver)}>Delete</Button>
@@ -70,7 +72,7 @@ function ApproverList(props) {
       </tbody>
     </Table>
     <Pagination elementsPerPage={approversPerPage} totalElements={props.approvers.length} paginate={paginate} url='approver/!#'/>
-    </>
+    </Container>
   )
 }
 

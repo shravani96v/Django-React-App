@@ -4,8 +4,6 @@ import "./navigation.css";
 import ApproverList from './approver-components/approver-list';
 import ApproverDetails from './approver-components/approver-details';
 import ApproverForm from './approver-components/approver-form';
-import TableList from './table'
-import { Button, Tab } from 'react-bootstrap';
 
 function Approver() {
 
@@ -42,7 +40,6 @@ function Approver() {
       }
       return newApprover;
     })
-    console.log("Its coming here in app.js");
     setApprovers(newApprovers)
   }
 
@@ -70,7 +67,6 @@ function Approver() {
         <h2 onClick={() => window.location.reload(false)}>Approvers List</h2>
       </header>
       <div className="layout">
-          <div>
             <ApproverList
               approvers={approvers}
               approverClick={loadApprover}
@@ -79,7 +75,6 @@ function Approver() {
               deleteClicked={deleteClicked}
               newApprover={newApprover}
             />
-          </div>
           { selectedApprover ?
           <ApproverDetails
             approver={selectedApprover}

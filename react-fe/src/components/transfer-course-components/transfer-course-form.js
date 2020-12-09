@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API } from '../../api-services/transfer-course-service';
+import { TCAPI } from '../../api-services/transfer-course-service';
 import { Form, Button } from 'react-bootstrap'
 import '../../App.css'
 import { optionsState } from 'react';
@@ -18,13 +18,13 @@ function TransferCourseForm(props) {
     }, [props.course])
 
     const updateClicked = () => {
-        API.updateTransferCourse(props.course.transfer_course_id, {title: title, subject_number: subjectNumber, school: school_id})
+        TCAPI.updateTransferCourse(props.course.transfer_course_id, {title: title, subject_number: subjectNumber, school: school_id})
             .then(resp => {
                  props.updatedTransferCourse(resp) });
     };
 
     const createClicked = () => {
-        API.createTransferCourse({title: title, subject_number: subjectNumber, school: school_id})
+        TCAPI.createTransferCourse({title: title, subject_number: subjectNumber, school: school_id})
             .then(resp => props.transferCourseCreated(resp));
     };
 

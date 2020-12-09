@@ -61,7 +61,7 @@ function TransferCourse() {
         <div className="list-group">
           <br/>
             <header className="App-header">
-                <h2>Transfer courses</h2>
+                <h2 onClick={() => window.location.reload(false)}>Transfer courses</h2>
             </header>
             <div className="layout">
                 <TransferCourseList

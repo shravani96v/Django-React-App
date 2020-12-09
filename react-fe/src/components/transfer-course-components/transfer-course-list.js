@@ -4,7 +4,7 @@ import { Container, Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { API } from '../../api-services/transfer-course-service';
+import { TCAPI } from '../../api-services/transfer-course-service';
 
 function TransferCourseList(props) {
 
@@ -29,7 +29,7 @@ function TransferCourseList(props) {
     
     const deleteClicked = course => {
         if (window.confirm("Are you sure?")) {
-            API.deleteTransferCourse(course.transfer_course_id)
+            TCAPI.deleteTransferCourse(course.transfer_course_id)
             .then( () => props.deleteClicked(course))
             .catch( error => console.log(error))
         } else {

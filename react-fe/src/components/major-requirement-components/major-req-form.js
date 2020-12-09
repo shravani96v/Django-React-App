@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { API } from '../../api-services/major-req-service';
+import { MRAPI } from '../../api-services/major-req-service';
 import { Form, Button } from 'react-bootstrap'
 import '../../App.css'
 
@@ -15,13 +15,13 @@ function MajorRequirementForm(props) {
     }, [props.majorReq])
 
     const updateClicked = () => {
-        API.updateMajorReq(props.majorReq.major_req_id, {description: description, major_id: major_id})
+        MRAPI.updateMajorReq(props.majorReq.major_req_id, {description: description, major_id: major_id})
             .then(resp => {
                  props.updateMajorReq(resp) });
     };
 
     const createClicked = () => {
-        API.createMajorReq({description: description, major_id: major_id})
+        MRAPI.createMajorReq({description: description, major_id: major_id})
             .then(resp => props.majorReqCreated(resp));
     };
 

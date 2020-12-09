@@ -69,28 +69,28 @@ function TransferEvaluationList(props) {
                             <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.major}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.school}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.course_number}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.course_title}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.unhm_eq}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.approved_status}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.approver}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.sem_year_taken}
                             </td>
-                            <td>
+                            <td onClick={transferEvalClicked(transferEval)}>
                                 {transferEval.expiration_date}
                             </td>
                             <td>

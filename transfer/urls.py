@@ -7,7 +7,8 @@ from .views.major_requirement_views import *
 from .views.transfer_evaluation_views import *
 from .views.school_views import *
 from .views.remove_data import *
-from .views.import_file import *;
+from .views.import_file import *
+from .views.remove import *
 
 
 urlpatterns = [
@@ -27,5 +28,6 @@ urlpatterns = [
     path('transfer-evaluation/<int:transfer_eval_id>/', transfer_evaluation_detail),
 
     path('transfer_evaluation/<int:schoolid>', transfer_evaluation),
-    path('import', FileUploadView)
+    path('import', FileUploadView),
+    path('remove', RemoveDataView)
 ]

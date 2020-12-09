@@ -4,7 +4,7 @@ import { Container, Table } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { API } from '../../api-services/major-req-service';
+import { MRAPI } from '../../api-services/major-req-service';
 
 function MajorRequirementList(props) {
 
@@ -29,7 +29,7 @@ function MajorRequirementList(props) {
     
     const deleteClicked = majorReq => {
         if (window.confirm("Are you sure?")) {
-            API.deleteMajorReq(majorReq.major_req_id)
+            MRAPI.deleteMajorReq(majorReq.major_req_id)
             .then( () => props.deleteClicked(majorReq))
             .catch( error => console.log(error))
         } else {

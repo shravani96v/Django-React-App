@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { API } from '../../api-services/transfer-eval-service';
+import { TCAPI } from '../../api-services/transfer-course-service';
 import { Form, Modal, Button } from 'react-bootstrap';
 import '../../App.css';
+import { MRAPI } from '../../api-services/major-req-service';
 
-function TransferEvaluationForm(props) {
+function NewForm(props) {
 
-    const [major_req_id, setMajorReqId] = useState('');
     const [majorReqs, setMajorReqs] = useState('');
     const [transfer_course_id, setTransferCourseId] = useState('');
     const [transferCourses, setTransferCourses] = useState('');
     const [approver_id, setApproverId] = useState('');
     const [approvers, setApprovers] = useState('');
     const [major_id, setMajorId] = useState('');
+    const [major_req_id, setMajorReqId] = useState('');
     const [majors, setMajors] = useState('');
     const [school_id, setSchoolId] = useState('');
     const [schools, setSchools] = useState('');
-    const [subjectNumber, setSubjectNumber] = useState('');
+    const [course_number, setCourseNumber] = useState('');
     const [title, setTitle] = useState('');
     const [unhmEq, setUnhmEq] = useState('');
     const [approverName, setApproverName] = useState('');
@@ -28,15 +30,15 @@ function TransferEvaluationForm(props) {
         setSchoolId(props.transferEval.school_id)
         setMajorId(props.transferEval.major_id)
         setMajorReqId(props.transferEval.major_req_id);
-        setTransferCourseId(props.transferEval.transfer_course_id);
+        setCourseNumber(props.transferEval.course_number);
         setApproverId(props.transferEval.approver_id);
-        setSubjectNumber(props.transferEval.course_number);
+        setCourseNumber(props.transferEval.course_number);
         setTitle(props.transferEval.course_title);
         setUnhmEq(props.transferEval.unhm_eq);
         setApproverName(props.transferEval.approver);
         setApprovedStatus(props.transferEval.approved_status);
         setSemYearTaken(props.transferEval.sem_year_taken);
-        setExpirationDate(props.transferEval.expiration_date)
+        setExpirationDate(props.transferEval.expiration_date);
     }, [props.transferEval])
 
     // changing the format of the date, django accepts date in only a specific format
@@ -70,30 +72,6 @@ function TransferEvaluationForm(props) {
       }, [])
 
     useEffect(() => {
-        fetch("http://127.0.0.1:8000/transfer-course-list/", {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        .then( resp => resp.json())
-        .then( resp => setTransferCourses(resp))
-        .catch(error => console.log(error))
-      }, [])
-
-    useEffect(() => {
-        fetch("http://127.0.0.1:8000/major-requirement-list/", {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          }
-        })
-        .then( resp => resp.json())
-        .then( resp => setMajorReqs(resp))
-        .catch(error => console.log(error))
-      }, [])
-
-    useEffect(() => {
         fetch("http://127.0.0.1:8000/approver-list/", {
           method: 'GET',
           headers: {
@@ -106,7 +84,6 @@ function TransferEvaluationForm(props) {
       }, [])
 
     const updateClicked = (e) => {
-        debugger;
         API.updateTransferEvaluation(props.transferEval.transfer_eval_id, 
                                         {
                                             transfer_eval_id: props.transferEval.transfer_eval_id,
@@ -131,27 +108,39 @@ function TransferEvaluationForm(props) {
     };
 
     const createClicked =  (e) => {
-
+        debugger;
         setErrorMsg(null);
+        if(course_number && title !== ''){
+            TCAPI.createTransferCourse({title: title, subject_number: course_number, school: school_id})
+            .then(resp => props.transferCourseCreated(resp));
+        }
+
+        if(unhmEq !== ''){
+            MRAPI.createMajorReq({description: unhmEq, major_id: major_id})
+            .then(resp => props.majorReqCreated(resp));
+        }
+
+        setTransferCourseId(props.transferCourseId);
+        setMajorReqId(props.majorReqId);
+
         API.createTransferEvaluation({
                                         major_id: major_id,
                                         school_id: school_id,
-                                        transfer_course_id: transfer_course_id,
-                                        major_req_id: major_req_id,
+                                        transfer_course_id: props.transferCourseId,
+                                        major_req_id: props.majorReqId,
                                         approver_id: approver_id,
                                         approved_status: approvedStatus,
                                         expiration_date: formatExpirationDate(expirationDate),
                                         sem_year_taken: semYearTaken
                                     })
             .then(resp => {
-
                 if(!resp.isError) {
                     props.transferEvalCreated(resp.resp);
                 } else {
                     setErrorMsg('creating');
                 }
             });
-            e.preventDefault();     
+            e.preventDefault();
     };
 
     const cancelClicked = (e) => {
@@ -188,30 +177,14 @@ function TransferEvaluationForm(props) {
                                     )
                                 })}
                     </select><br />
-                    <Form.Label htmlFor="tcnumber">Transfer course number</Form.Label>
-                    <select id="tcnumber"
-                            className='form-control'
-                            value={transfer_course_id}
-                            onChange={evt => setTransferCourseId(evt.target.value)}>
-                                <option>----select----</option>
-                                {transferCourses && transferCourses.map( tc => {
-                                    return (
-                                        <option key={tc.transfer_course_id} value={tc.transfer_course_id}>{tc.subject_number} </option>
-                                    )
-                                })}
-                    </select><br />
-                    <Form.Label htmlFor="unhm">UNH M Equivalent</Form.Label>
-                    <select id="unhm"
-                            className='form-control'
-                            value={major_req_id}
-                            onChange={evt => setMajorReqId(evt.target.value)}>
-                                <option>----select----</option>
-                                {majorReqs && majorReqs.map( mr => {
-                                    return (
-                                        <option key={mr.major_req_id} value={mr.major_req_id}>{mr.description} </option>
-                                    )
-                                })}
-                    </select><br />
+                    <Form.Label htmlFor="tc">Transfer course number</Form.Label>
+                    <Form.Control id="tc" type="text" placeholder="Enter the transfer course number"
+                        value={course_number} onChange={evt => setCourseNumber(evt.target.value)}/><br/>
+                    <Form.Control id="tc" type="text" placeholder="Enter the transfer course title"
+                        value={title} onChange={evt => setTitle(evt.target.value)}/><br/>
+                    <Form.Label htmlFor="unhm">UNHM Equivalent</Form.Label>
+                    <Form.Control id="unhm" type="text" placeholder="Enter the UNHM equivalent"
+                        value={unhmEq} onChange={evt => setUnhmEq(evt.target.value)}/><br/>
                     <Form.Label htmlFor="approver">Approver name</Form.Label>
                     <select id="approver"
                             className='form-control'
@@ -229,8 +202,8 @@ function TransferEvaluationForm(props) {
                             className='form-control'
                             value={approvedStatus}
                             onChange={evt => setApprovedStatus(evt.target.value)}>
-                                <option selected>----select----</option>
-                                <option value="Y">Yes</option>
+                                <option disabled></option>
+                                <option value="Y" selected>Yes</option>
                                 <option value="N">No</option>
                     </select><br />
                     <Form.Label htmlFor="semyeartaken">Sem/year taken</Form.Label>
@@ -242,7 +215,7 @@ function TransferEvaluationForm(props) {
 
                     {
                         errorMsg ? 
-                        <p style={{color:'red'}}> Error {errorMsg} the transfer eval</p>
+                        <p style={{color:'red'}}> Error {errorMsg} the transfer evaluation</p>
                         : null
                     }
                     { props.transferEval.transfer_eval_id ?
@@ -260,4 +233,4 @@ function TransferEvaluationForm(props) {
     )
 }
 
-export default TransferEvaluationForm;
+export default NewForm;
